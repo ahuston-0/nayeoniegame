@@ -1,5 +1,4 @@
 # uv
-uv.lock
 .venv/
 __pycache__/
 *.py[cod]
