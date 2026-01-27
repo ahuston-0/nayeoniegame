@@ -1,6 +1,7 @@
 """Player entity."""
 
 import pygame
+
 from .. import config
 
 

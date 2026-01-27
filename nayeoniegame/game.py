@@ -2,7 +2,9 @@
 
 import os
 import sys
+
 import pygame
+
 from . import config
 from .scenes.main_menu import MainMenuScene
 
@@ -20,7 +22,7 @@ class Game:
 
         # Check if we can create a display
         if headless:
-            os.environ['SDL_VIDEODRIVER'] = 'dummy'
+            os.environ["SDL_VIDEODRIVER"] = "dummy"
             self.screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
         else:
             try:
@@ -32,7 +34,9 @@ class Game:
                 print("If you're running in a headless environment (SSH, container, etc.),")
                 print("you'll need to set up a virtual display or run on a system with a display.")
                 print("\nFor testing purposes, you can verify the game imports correctly with:")
-                print("  python -c 'from nayeoniegame.game import Game; print(\"Import successful!\")'")
+                print(
+                    "  python -c 'from nayeoniegame.game import Game; print(\"Import successful!\")'"
+                )
                 pygame.quit()
                 sys.exit(1)
 

@@ -1,8 +1,9 @@
 """Main menu scene."""
 
 import pygame
-from .base import Scene
+
 from .. import config
+from .base import Scene
 
 
 class MainMenuScene(Scene):
@@ -29,6 +30,7 @@ class MainMenuScene(Scene):
         """Handle option selection."""
         if self.selected_option == 0:  # Start Game
             from .minigame_selection import MinigameSelectionScene
+
             self.game.change_scene(MinigameSelectionScene(self.game))
         elif self.selected_option == 1:  # Quit
             self.game.quit()
@@ -54,6 +56,8 @@ class MainMenuScene(Scene):
             screen.blit(text, text_rect)
 
         # Draw instructions
-        instructions = self.small_font.render("Use UP/DOWN arrows and ENTER to select", True, config.WHITE)
+        instructions = self.small_font.render(
+            "Use UP/DOWN arrows and ENTER to select", True, config.WHITE
+        )
         instructions_rect = instructions.get_rect(center=(config.SCREEN_WIDTH // 2, 500))
         screen.blit(instructions, instructions_rect)

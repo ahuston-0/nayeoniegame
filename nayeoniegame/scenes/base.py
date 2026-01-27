@@ -1,7 +1,6 @@
 """Base scene class for all game scenes."""
 
 from abc import ABC, abstractmethod
-import pygame
 
 
 class Scene(ABC):

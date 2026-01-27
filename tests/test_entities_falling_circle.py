@@ -1,7 +1,7 @@
 """Unit tests for FallingCircle entity."""
 
-from nayeoniegame.entities.falling_circle import FallingCircle
 from nayeoniegame import config
+from nayeoniegame.entities.falling_circle import FallingCircle
 
 
 def test_falling_circle_initialization():

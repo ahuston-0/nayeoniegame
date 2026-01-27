@@ -1,11 +1,13 @@
 """Color Collector minigame scene."""
 
 import random
+
 import pygame
-from .base import Scene
+
 from .. import config
-from ..entities.paddle import Paddle
 from ..entities.falling_circle import FallingCircle
+from ..entities.paddle import Paddle
+from .base import Scene
 
 
 class ColorCollectorMinigame(Scene):
@@ -43,9 +45,7 @@ class ColorCollectorMinigame(Scene):
 
     def _spawn_circle(self):
         """Spawn a new falling circle at random position."""
-        x = random.randint(
-            config.CIRCLE_RADIUS, config.SCREEN_WIDTH - config.CIRCLE_RADIUS
-        )
+        x = random.randint(config.CIRCLE_RADIUS, config.SCREEN_WIDTH - config.CIRCLE_RADIUS)
         y = -config.CIRCLE_RADIUS
         color = random.choice(self.colors)
         circle = FallingCircle(x, y, color)
@@ -99,7 +99,7 @@ class ColorCollectorMinigame(Scene):
 
         # Check for collisions
         hits = pygame.sprite.spritecollide(self.paddle, self.falling_circles, True)
-        for hit in hits:
+        for _hit in hits:
             self._handle_catch()
 
         # Remove off-screen circles and count misses
@@ -123,9 +123,7 @@ class ColorCollectorMinigame(Scene):
         screen.blit(lives_text, (10, 50))
 
         # Draw instructions
-        instructions = self.font.render(
-            "A/D or Arrows: Move | ESC: Back", True, config.WHITE
-        )
+        instructions = self.font.render("A/D or Arrows: Move | ESC: Back", True, config.WHITE)
         screen.blit(instructions, (10, config.SCREEN_HEIGHT - 40))
 
         # Draw game over screen
@@ -141,17 +139,13 @@ class ColorCollectorMinigame(Scene):
             )
             screen.blit(game_over_text, game_over_rect)
 
-            final_score_text = self.font.render(
-                f"Final Score: {self.score}", True, config.WHITE
-            )
+            final_score_text = self.font.render(f"Final Score: {self.score}", True, config.WHITE)
             final_score_rect = final_score_text.get_rect(
                 center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 + 20)
             )
             screen.blit(final_score_text, final_score_rect)
 
-            continue_text = self.font.render(
-                "Press ENTER to continue", True, config.WHITE
-            )
+            continue_text = self.font.render("Press ENTER to continue", True, config.WHITE)
             continue_rect = continue_text.get_rect(
                 center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 + 70)
             )

@@ -1,6 +1,7 @@
 """Unit tests for MinigameSelectionScene."""
 
 import pygame
+
 from nayeoniegame.scenes.minigame_selection import MinigameSelectionScene
 
 

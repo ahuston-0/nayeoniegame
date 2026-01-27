@@ -23,13 +23,29 @@ def test_imports():
 
         print("  ✓ main menu scene")
 
+        from nayeoniegame.scenes.minigame_selection import MinigameSelectionScene  # noqa F401
+
+        print("  ✓ minigame selection scene")
+
         from nayeoniegame.scenes.minigame_movement import MovementMinigame  # noqa F401
 
         print("  ✓ movement minigame scene")
 
+        from nayeoniegame.scenes.minigame_color_collector import ColorCollectorMinigame  # noqa F401
+
+        print("  ✓ color collector minigame scene")
+
         from nayeoniegame.entities.player import Player  # noqa F401
 
         print("  ✓ player entity")
+
+        from nayeoniegame.entities.paddle import Paddle  # noqa F401
+
+        print("  ✓ paddle entity")
+
+        from nayeoniegame.entities.falling_circle import FallingCircle  # noqa F401
+
+        print("  ✓ falling circle entity")
 
         from nayeoniegame.game import Game  # noqa F401
 

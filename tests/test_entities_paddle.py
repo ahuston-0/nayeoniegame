@@ -1,7 +1,7 @@
 """Unit tests for Paddle entity."""
 
-from nayeoniegame.entities.paddle import Paddle
 from nayeoniegame import config
+from nayeoniegame.entities.paddle import Paddle
 
 
 def test_paddle_initialization():

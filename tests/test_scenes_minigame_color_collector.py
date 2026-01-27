@@ -1,8 +1,9 @@
 """Unit tests for ColorCollectorMinigame."""
 
 import pygame
-from nayeoniegame.scenes.minigame_color_collector import ColorCollectorMinigame
+
 from nayeoniegame import config
+from nayeoniegame.scenes.minigame_color_collector import ColorCollectorMinigame
 
 
 def test_color_collector_initialization(mock_game):

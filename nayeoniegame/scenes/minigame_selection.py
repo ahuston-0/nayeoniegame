@@ -1,8 +1,9 @@
 """Minigame selection menu scene."""
 
 import pygame
-from .base import Scene
+
 from .. import config
+from .base import Scene
 
 
 class MinigameSelectionScene(Scene):
@@ -91,9 +92,7 @@ class MinigameSelectionScene(Scene):
         instructions = self.small_font.render(
             "UP/DOWN: Navigate | ENTER: Select | ESC: Back", True, config.WHITE
         )
-        instructions_rect = instructions.get_rect(
-            center=(config.SCREEN_WIDTH // 2, 520)
-        )
+        instructions_rect = instructions.get_rect(center=(config.SCREEN_WIDTH // 2, 520))
         screen.blit(instructions, instructions_rect)
 
     @property

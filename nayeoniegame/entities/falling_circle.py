@@ -1,6 +1,7 @@
 """Falling circle entity for Color Collector minigame."""
 
 import pygame
+
 from .. import config
 
 

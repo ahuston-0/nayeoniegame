@@ -1,6 +1,7 @@
 """Unit tests for MovementMinigame."""
 
 import pygame
+
 from nayeoniegame.scenes.minigame_movement import MovementMinigame
 
 

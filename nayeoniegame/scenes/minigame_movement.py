@@ -1,9 +1,10 @@
 """Movement minigame scene."""
 
 import pygame
-from .base import Scene
+
 from .. import config
 from ..entities.player import Player
+from .base import Scene
 
 
 class MovementMinigame(Scene):
@@ -62,7 +63,5 @@ class MovementMinigame(Scene):
         screen.blit(title, (10, 10))
 
         # Draw instructions
-        instructions = self.font.render(
-            "WASD/Arrows: Move | ESC: Back", True, config.WHITE
-        )
+        instructions = self.font.render("WASD/Arrows: Move | ESC: Back", True, config.WHITE)
         screen.blit(instructions, (10, config.SCREEN_HEIGHT - 40))

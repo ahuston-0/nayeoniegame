@@ -1,8 +1,9 @@
 """Pytest configuration and fixtures."""
 
-import pytest
-import pygame
 import os
+
+import pygame
+import pytest
 
 
 @pytest.fixture(scope="session", autouse=True)

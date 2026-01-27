@@ -1,14 +1,17 @@
 # Nayeonie Game
 
-A pygame-based game built with uv and Nix flakes.
+A pygame-based minigame collection built with uv and Nix flakes.
 
 [![Hippocratic License HL3-FULL](https://img.shields.io/static/v1?label=Hippocratic%20License&message=HL3-FULL&labelColor=5e2751&color=bc8c3d)](https://firstdonoharm.dev/version/3/0/full.html)
 
 ## Features
 
-- **Scene-based architecture** for easy game state management
-- **Player movement** with keyboard controls (WASD/Arrow keys)
-- **Main menu** with navigation
+- **Modular minigame architecture** - Easy to add new minigames
+- **Scene-based architecture** for game state management
+- **Two playable minigames**:
+  - **Free Movement**: Explore and move around freely with WASD/Arrow controls
+  - **Color Collector**: Catch falling colored circles with a paddle
+- **Comprehensive test suite** with >90% code coverage
 - **Nix flakes** for reproducible development environment
 - **uv** for fast, reliable Python package management
 
@@ -85,27 +88,45 @@ nix build
 ./result/bin/nayeoniegame
 ```
 
+## Minigames
+
+### Free Movement
+Move a cyan circle around the screen freely. Great for testing controls and exploring.
+- **Controls**: WASD or Arrow keys to move, ESC to return to menu
+
+### Color Collector
+Catch falling colored circles with your paddle before they hit the bottom!
+- **Controls**: A/D or Left/Right arrows to move paddle, ESC to return to menu
+- **Objective**: Catch circles to increase score, avoid missing them (3 lives)
+
 ## Project Structure
 
 ```
 nayeoniegame/
-├── nayeoniegame/          # Main game package
-│   ├── __init__.py        # Package initialization
-│   ├── __main__.py        # Entry point
-│   ├── config.py          # Game configuration constants
-│   ├── game.py            # Main game loop and window management
-│   ├── scenes/            # Game scenes (menu, gameplay, etc.)
+├── nayeoniegame/                      # Main game package
+│   ├── __init__.py                    # Package initialization
+│   ├── __main__.py                    # Entry point
+│   ├── config.py                      # Game configuration constants
+│   ├── game.py                        # Main game loop and window management
+│   ├── scenes/                        # Game scenes
 │   │   ├── __init__.py
-│   │   ├── base.py        # Base scene class
-│   │   ├── main_menu.py   # Main menu scene
-│   │   └── gameplay.py    # Gameplay scene
-│   ├── entities/          # Game sprites and objects
-│   │   ├── __init__.py
-│   │   └── player.py      # Player character
-│   └── assets/            # Game assets (images, sounds, fonts)
-├── pyproject.toml         # Python project configuration (uv/pip)
-├── uv.lock                # Locked dependencies
-└── flake.nix              # Nix flake configuration
+│   │   ├── base.py                    # Base scene class
+│   │   ├── main_menu.py               # Main menu scene
+│   │   ├── minigame_selection.py      # Minigame selection menu
+│   │   ├── minigame_movement.py       # Free movement minigame
+│   │   └── minigame_color_collector.py # Color collector minigame
+│   └── entities/                      # Game sprites and objects
+│       ├── __init__.py
+│       ├── player.py                  # Player character (movement minigame)
+│       ├── paddle.py                  # Paddle (color collector)
+│       └── falling_circle.py          # Falling circle (color collector)
+├── tests/                             # Unit tests
+│   ├── conftest.py                    # Pytest fixtures
+│   ├── test_entities_*.py             # Entity tests
+│   └── test_scenes_*.py               # Scene tests
+├── pyproject.toml                     # Python project configuration
+├── uv.lock                            # Locked dependencies
+└── flake.nix                          # Nix flake configuration
 ```
 
 ## Controls
@@ -113,10 +134,16 @@ nayeoniegame/
 ### Main Menu
 - **UP/DOWN arrows**: Navigate menu options
 - **ENTER**: Select option
+- **ESC**: Return to previous menu (or quit from main menu)
 
-### Gameplay
-- **WASD** or **Arrow keys**: Move player
-- **ESC**: Return to main menu
+### Free Movement Minigame
+- **WASD** or **Arrow keys**: Move player in all directions
+- **ESC**: Return to minigame selection
+
+### Color Collector Minigame
+- **A/D** or **Left/Right arrows**: Move paddle horizontally
+- **ESC**: Return to minigame selection
+- **ENTER**: Continue after game over
 
 ## Dependencies
 
@@ -130,15 +157,71 @@ The project uses:
 - **hatchling** as the build backend (PEP 621 compliant)
 - **Nix flakes** for reproducible development environments
 - **pygame** for game development
+- **pytest** with coverage for testing
+- **ruff** for linting and formatting
 
-To add new dependencies:
+### Running Tests
+
+Run the full test suite with coverage:
+
+```bash
+# Inside Nix shell
+nix develop --command uv run pytest
+
+# Or just
+uv run pytest
+```
+
+The test suite includes:
+- **39 unit tests** covering all entities and scenes
+- **90%+ code coverage** (minimum 80% enforced)
+- Headless pygame testing using dummy video driver
+
+### View Coverage Report
+
+```bash
+# Generate HTML coverage report
+uv run pytest
+
+# Open the report
+firefox htmlcov/index.html  # Or your preferred browser
+```
+
+### Code Quality
+
+```bash
+# Run linter
+uv run ruff check .
+
+# Auto-fix issues
+uv run ruff check --fix .
+
+# Format code
+uv run ruff format .
+
+# Type checking
+uv run ty check nayeoniegame
+```
+
+### Adding New Minigames
+
+The modular architecture makes it easy to add new minigames:
+
+1. Create your minigame scene in `nayeoniegame/scenes/minigame_yourname.py`
+2. Add it to the `MINIGAMES` list in `nayeoniegame/scenes/minigame_selection.py`
+3. Add the import case in `_select_option()` method
+4. Write unit tests in `tests/test_scenes_minigame_yourname.py`
+
+See [minigame_color_collector.py](nayeoniegame/scenes/minigame_color_collector.py) for a complete example.
+
+### Adding New Dependencies
 
 ```bash
 # Add a new dependency
 uv add package-name
 
 # Add a development dependency
-uv add --dev package-name
+uv add --group dev package-name
 ```
 
 ## License
