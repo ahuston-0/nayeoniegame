@@ -3,6 +3,7 @@
 import pygame
 
 from .. import config
+from ..assets import get_image
 
 
 class MazePlayer(pygame.sprite.Sprite):
@@ -25,8 +26,12 @@ class MazePlayer(pygame.sprite.Sprite):
         self.player_size = int(maze.cell_size * 0.8)
 
         # Visual representation
-        self.image = pygame.Surface((self.player_size, self.player_size))
-        self.image.fill(config.CYAN)
+        try:
+            # Attempt to use an image asset for the player
+            self.image = get_image("player", (self.player_size, self.player_size))
+        except Exception:
+            self.image = pygame.Surface((self.player_size, self.player_size))
+            self.image.fill(config.CYAN)
         self.rect = self.image.get_rect()
         self._update_pixel_position()
 

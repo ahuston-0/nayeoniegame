@@ -3,6 +3,7 @@
 import pygame
 
 from .. import config
+from ..assets import get_image
 from ..entities.maze import Maze
 from ..entities.maze_player import MazePlayer
 from .base import Scene
@@ -36,6 +37,10 @@ class MazeRunnerMinigame(Scene):
         self.player = MazePlayer(self.maze.start[0], self.maze.start[1], self.maze)
         self.cell_size = cell_size
         self.grid_size = grid_size
+
+        # Load tile images (fallback to placeholders provided by get_image)
+        self.wall_surface = get_image("maze_wall", (self.cell_size, self.cell_size))
+        self.floor_surface = get_image("maze_floor", (self.cell_size, self.cell_size))
 
         # Sprite group for rendering
         self.all_sprites = pygame.sprite.Group()
@@ -114,25 +119,24 @@ class MazeRunnerMinigame(Scene):
             for col in range(self.maze.size):
                 x, y = self.maze.get_cell_pixel_pos(row, col)
                 if self.maze.grid[row][col] == Maze.WALL:
-                    # Draw walls as white filled rectangles
-                    pygame.draw.rect(
-                        screen,
-                        config.WHITE,
-                        (x, y, self.cell_size, self.cell_size),
-                    )
+                    # Draw wall using image if available
+                    if self.wall_surface:
+                        screen.blit(self.wall_surface, (x, y))
+                    else:
+                        pygame.draw.rect(
+                            screen, config.WHITE, (x, y, self.cell_size, self.cell_size)
+                        )
                 else:
-                    # Draw paths as dark gray with lighter border for visibility
-                    pygame.draw.rect(
-                        screen,
-                        (40, 40, 40),
-                        (x, y, self.cell_size, self.cell_size),
-                    )
-                    pygame.draw.rect(
-                        screen,
-                        (60, 60, 60),
-                        (x, y, self.cell_size, self.cell_size),
-                        1,
-                    )
+                    # Draw floor/path using image if available
+                    if self.floor_surface:
+                        screen.blit(self.floor_surface, (x, y))
+                    else:
+                        pygame.draw.rect(
+                            screen, (40, 40, 40), (x, y, self.cell_size, self.cell_size)
+                        )
+                        pygame.draw.rect(
+                            screen, (60, 60, 60), (x, y, self.cell_size, self.cell_size), 1
+                        )
 
     def _draw_goal(self, screen):
         """Draw goal marker."""

@@ -3,6 +3,7 @@
 import pygame
 
 from .. import config
+from ..assets import get_image
 
 
 class FallingCircle(pygame.sprite.Sprite):
@@ -21,8 +22,11 @@ class FallingCircle(pygame.sprite.Sprite):
 
         # Create circle surface
         radius = config.CIRCLE_RADIUS
-        self.image = pygame.Surface((radius * 2, radius * 2), pygame.SRCALPHA)
-        pygame.draw.circle(self.image, color, (radius, radius), radius)
+        try:
+            self.image = get_image("circle", (radius * 2, radius * 2))
+        except Exception:
+            self.image = pygame.Surface((radius * 2, radius * 2), pygame.SRCALPHA)
+            pygame.draw.circle(self.image, color, (radius, radius), radius)
 
         # Position
         self.rect = self.image.get_rect()
