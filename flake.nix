@@ -24,6 +24,7 @@
               SDL2_image
               SDL2_mixer
               SDL2_ttf
+              zlib  # Required for pygame font module
             ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
               # Wayland support
               wayland
@@ -34,6 +35,9 @@
               xorg.libXcursor
               xorg.libXi
               xorg.libXrandr
+              # EGL/OpenGL support for rendering
+              libGL
+              mesa
             ];
 
             shellHook = ''
@@ -46,12 +50,15 @@
                 export SDL_VIDEODRIVER=wayland,x11
                 export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [
                   pkgs.SDL2
+                  pkgs.zlib
                   pkgs.wayland
                   pkgs.libxkbcommon
                   pkgs.xorg.libX11
                   pkgs.xorg.libXcursor
                   pkgs.xorg.libXi
                   pkgs.xorg.libXrandr
+                  pkgs.libGL
+                  pkgs.mesa
                 ]}''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
               ''}
 

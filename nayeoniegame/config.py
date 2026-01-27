@@ -17,3 +17,12 @@ MAGENTA = (255, 0, 255)
 
 # Game title
 TITLE = "Nayeonie Game"
+
+# Minigame: Color Collector
+PADDLE_WIDTH = 100
+PADDLE_HEIGHT = 20
+PADDLE_SPEED = 400
+CIRCLE_RADIUS = 15
+CIRCLE_FALL_SPEED = 150  # Initial speed
+CIRCLE_SPAWN_INTERVAL = 1.5  # Seconds between spawns
+MAX_LIVES = 3

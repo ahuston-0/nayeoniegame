@@ -28,8 +28,8 @@ class MainMenuScene(Scene):
     def _select_option(self):
         """Handle option selection."""
         if self.selected_option == 0:  # Start Game
-            from .gameplay import GameplayScene
-            self.game.change_scene(GameplayScene(self.game))
+            from .minigame_selection import MinigameSelectionScene
+            self.game.change_scene(MinigameSelectionScene(self.game))
         elif self.selected_option == 1:  # Quit
             self.game.quit()
 
