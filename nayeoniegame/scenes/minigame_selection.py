@@ -21,6 +21,7 @@ class MinigameSelectionScene(Scene):
         ("Free Movement", "Move around the screen", "MovementMinigame"),
         ("Color Collector", "Catch falling circles", "ColorCollectorMinigame"),
         ("Maze Runner", "Navigate through the maze", "MazeRunnerMinigame"),
+        ("Snake", "Classic snake game", "SnakeMinigame"),
     ]
 
     def __init__(self, game):
@@ -67,6 +68,10 @@ class MinigameSelectionScene(Scene):
                 from .minigame_maze_runner import MazeRunnerMinigame
 
                 self.game.change_scene(MazeRunnerMinigame(self.game))
+            elif scene_class_name == "SnakeMinigame":
+                from .minigame_snake import SnakeMinigame
+
+                self.game.change_scene(SnakeMinigame(self.game))
         else:
             # Back to Main Menu option
             from .main_menu import MainMenuScene

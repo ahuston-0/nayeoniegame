@@ -9,7 +9,7 @@ def test_minigame_selection_initialization(mock_game):
     """Test minigame selection initializes correctly."""
     scene = MinigameSelectionScene(mock_game)
     assert scene.selected_option == 0
-    assert len(scene.minigames) == 3  # Movement, Color Collector, and Maze Runner
+    assert len(scene.minigames) == 4  # Movement, Color Collector, Maze Runner, and Snake
 
 
 def test_minigame_selection_navigation(mock_game):
