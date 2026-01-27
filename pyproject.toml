@@ -19,6 +19,7 @@ packages = ["nayeoniegame"]
 
 [dependency-groups]
 dev = [
+    "pip-audit>=2.10.0",
     "prek>=0.3.0",
     "pytest-cov>=4.1.0",
     "pytest>=8.0.0",
@@ -49,6 +50,7 @@ omit = [
     "*/test_setup.py",
     "*/__main__.py",
     "*/game.py",
+    "*/scenes/settings.py",  # UI-only scene, hard to test meaningfully
 ]
 
 [tool.coverage.report]

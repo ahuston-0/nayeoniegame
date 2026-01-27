@@ -18,6 +18,10 @@ class ColorCollectorMinigame(Scene):
         self.font = pygame.font.SysFont(None, 32)
         self.large_font = pygame.font.SysFont(None, 64)
 
+        # Get dynamic screen dimensions
+        self.screen_width = game.screen.get_width()
+        self.screen_height = game.screen.get_height()
+
         # Game state
         self.score = 0
         self.lives = config.MAX_LIVES
@@ -34,8 +38,8 @@ class ColorCollectorMinigame(Scene):
             config.CYAN,
         ]
 
-        # Create paddle
-        self.paddle = Paddle(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT - 70)
+        # Create paddle with dynamic screen width
+        self.paddle = Paddle(self.screen_width // 2, self.screen_height - 70, self.screen_width)
 
         # Sprite groups
         self.all_sprites = pygame.sprite.Group()
@@ -45,7 +49,7 @@ class ColorCollectorMinigame(Scene):
 
     def _spawn_circle(self):
         """Spawn a new falling circle at random position."""
-        x = random.randint(config.CIRCLE_RADIUS, config.SCREEN_WIDTH - config.CIRCLE_RADIUS)
+        x = random.randint(config.CIRCLE_RADIUS, self.screen_width - config.CIRCLE_RADIUS)
         y = -config.CIRCLE_RADIUS
         color = random.choice(self.colors)
         circle = FallingCircle(x, y, color)
@@ -104,7 +108,7 @@ class ColorCollectorMinigame(Scene):
 
         # Remove off-screen circles and count misses
         for circle in list(self.falling_circles):
-            if circle.is_off_screen():
+            if circle.is_off_screen(self.screen_height):
                 self._handle_miss()
                 circle.kill()
 
@@ -124,29 +128,29 @@ class ColorCollectorMinigame(Scene):
 
         # Draw instructions
         instructions = self.font.render("A/D or Arrows: Move | ESC: Back", True, config.WHITE)
-        screen.blit(instructions, (10, config.SCREEN_HEIGHT - 40))
+        screen.blit(instructions, (10, self.screen_height - 40))
 
         # Draw game over screen
         if self.game_over:
-            overlay = pygame.Surface((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
+            overlay = pygame.Surface((self.screen_width, self.screen_height))
             overlay.set_alpha(128)
             overlay.fill(config.BLACK)
             screen.blit(overlay, (0, 0))
 
             game_over_text = self.large_font.render("GAME OVER", True, config.RED)
             game_over_rect = game_over_text.get_rect(
-                center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 - 50)
+                center=(self.screen_width // 2, self.screen_height // 2 - 50)
             )
             screen.blit(game_over_text, game_over_rect)
 
             final_score_text = self.font.render(f"Final Score: {self.score}", True, config.WHITE)
             final_score_rect = final_score_text.get_rect(
-                center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 + 20)
+                center=(self.screen_width // 2, self.screen_height // 2 + 20)
             )
             screen.blit(final_score_text, final_score_rect)
 
             continue_text = self.font.render("Press ENTER to continue", True, config.WHITE)
             continue_rect = continue_text.get_rect(
-                center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 + 70)
+                center=(self.screen_width // 2, self.screen_height // 2 + 70)
             )
             screen.blit(continue_text, continue_rect)

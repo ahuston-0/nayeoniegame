@@ -22,14 +22,17 @@ def mock_screen():
 
 
 @pytest.fixture
-def mock_game():
+def mock_game(tmp_path):
     """Create a mock Game instance for testing scenes."""
+    from nayeoniegame.settings import SettingsManager
 
     class MockGame:
         def __init__(self):
             self.screen = pygame.Surface((800, 600))
             self.current_scene = None
             self.running = True
+            # Use temporary path for settings in tests
+            self.settings_manager = SettingsManager(tmp_path / "test_settings.toml")
 
         def change_scene(self, scene):
             self.current_scene = scene

@@ -47,6 +47,18 @@ def test_imports():
 
         print("  ✓ falling circle entity")
 
+        from nayeoniegame.entities.maze import Maze  # noqa F401
+
+        print("  ✓ maze entity")
+
+        from nayeoniegame.entities.maze_player import MazePlayer  # noqa F401
+
+        print("  ✓ maze player entity")
+
+        from nayeoniegame.scenes.minigame_maze_runner import MazeRunnerMinigame  # noqa F401
+
+        print("  ✓ maze runner minigame scene")
+
         from nayeoniegame.game import Game  # noqa F401
 
         print("  ✓ game class")

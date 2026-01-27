@@ -14,7 +14,7 @@ class MainMenuScene(Scene):
         self.font = pygame.font.SysFont(None, 48)
         self.small_font = pygame.font.SysFont(None, 32)
         self.selected_option = 0
-        self.options = ["Start Game", "Quit"]
+        self.options = ["Start Game", "Settings", "Quit"]
 
     def handle_event(self, event):
         """Handle input events."""
@@ -32,7 +32,11 @@ class MainMenuScene(Scene):
             from .minigame_selection import MinigameSelectionScene
 
             self.game.change_scene(MinigameSelectionScene(self.game))
-        elif self.selected_option == 1:  # Quit
+        elif self.selected_option == 1:  # Settings
+            from .settings import SettingsScene
+
+            self.game.change_scene(SettingsScene(self.game))
+        elif self.selected_option == 2:  # Quit
             self.game.quit()
 
     def update(self, dt):

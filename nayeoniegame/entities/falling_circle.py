@@ -41,10 +41,14 @@ class FallingCircle(pygame.sprite.Sprite):
         """
         self.rect.y += self.speed * dt
 
-    def is_off_screen(self):
+    def is_off_screen(self, screen_height=None):
         """Check if circle has fallen off the bottom of the screen.
+
+        Args:
+            screen_height: Height of screen (defaults to config)
 
         Returns:
             bool: True if off screen
         """
-        return self.rect.top > config.SCREEN_HEIGHT
+        height = screen_height if screen_height is not None else config.SCREEN_HEIGHT
+        return self.rect.top > height

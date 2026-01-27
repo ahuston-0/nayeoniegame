@@ -8,9 +8,10 @@ A pygame-based minigame collection built with uv and Nix flakes.
 
 - **Modular minigame architecture** - Easy to add new minigames
 - **Scene-based architecture** for game state management
-- **Two playable minigames**:
+- **Three playable minigames**:
   - **Free Movement**: Explore and move around freely with WASD/Arrow controls
   - **Color Collector**: Catch falling colored circles with a paddle
+  - **Maze Runner**: Navigate through procedurally generated mazes
 - **Comprehensive test suite** with >90% code coverage
 - **Nix flakes** for reproducible development environment
 - **uv** for fast, reliable Python package management
@@ -99,6 +100,12 @@ Catch falling colored circles with your paddle before they hit the bottom!
 - **Controls**: A/D or Left/Right arrows to move paddle, ESC to return to menu
 - **Objective**: Catch circles to increase score, avoid missing them (3 lives)
 
+### Maze Runner
+Navigate through procedurally generated mazes to reach the goal!
+- **Controls**: WASD or Arrow keys to move, ESC to return to menu
+- **Objective**: Find your way from the cyan starting position to the yellow goal
+- **Challenge**: Beat your best time! The maze is randomly generated each playthrough
+
 ## Project Structure
 
 ```
@@ -114,12 +121,15 @@ nayeoniegame/
 │   │   ├── main_menu.py               # Main menu scene
 │   │   ├── minigame_selection.py      # Minigame selection menu
 │   │   ├── minigame_movement.py       # Free movement minigame
-│   │   └── minigame_color_collector.py # Color collector minigame
+│   │   ├── minigame_color_collector.py # Color collector minigame
+│   │   └── minigame_maze_runner.py    # Maze runner minigame
 │   └── entities/                      # Game sprites and objects
 │       ├── __init__.py
 │       ├── player.py                  # Player character (movement minigame)
 │       ├── paddle.py                  # Paddle (color collector)
-│       └── falling_circle.py          # Falling circle (color collector)
+│       ├── falling_circle.py          # Falling circle (color collector)
+│       ├── maze.py                    # Maze generation (maze runner)
+│       └── maze_player.py             # Grid-based player (maze runner)
 ├── tests/                             # Unit tests
 │   ├── conftest.py                    # Pytest fixtures
 │   ├── test_entities_*.py             # Entity tests
@@ -144,6 +154,11 @@ nayeoniegame/
 - **A/D** or **Left/Right arrows**: Move paddle horizontally
 - **ESC**: Return to minigame selection
 - **ENTER**: Continue after game over
+
+### Maze Runner Minigame
+- **WASD** or **Arrow keys**: Move player one cell at a time (discrete movement)
+- **ESC**: Return to minigame selection
+- **ENTER**: Continue after winning
 
 ## Dependencies
 
@@ -173,8 +188,8 @@ uv run pytest
 ```
 
 The test suite includes:
-- **39 unit tests** covering all entities and scenes
-- **90%+ code coverage** (minimum 80% enforced)
+- **68 unit tests** covering all entities and scenes
+- **91.9% code coverage** (minimum 80% enforced)
 - Headless pygame testing using dummy video driver
 
 ### View Coverage Report

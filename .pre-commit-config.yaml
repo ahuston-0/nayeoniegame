@@ -31,3 +31,10 @@ repos:
       language: python
       pass_filenames: false
       additional_dependencies: []
+    - id: pip-audit
+      name: pip audit
+      description: "Automatically run 'pip-audit --exit-code 1 --progress-bar off'"
+      entry: uv run pip-audit --progress-spinner off
+      language: python
+      pass_filenames: false
+      additional_dependencies: []

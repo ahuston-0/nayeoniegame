@@ -8,7 +8,7 @@ from .. import config
 class Player(pygame.sprite.Sprite):
     """Player character sprite."""
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, screen_width=None, screen_height=None):
         super().__init__()
 
         # Create sprite surface (a simple circle)
@@ -23,6 +23,10 @@ class Player(pygame.sprite.Sprite):
         self.speed = 200  # pixels per second
         self.dx = 0
         self.dy = 0
+
+        # Screen bounds
+        self.screen_width = screen_width if screen_width is not None else config.SCREEN_WIDTH
+        self.screen_height = screen_height if screen_height is not None else config.SCREEN_HEIGHT
 
     def set_direction(self, dx, dy):
         """Set movement direction.
@@ -50,4 +54,4 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.dy * self.speed * dt
 
         # Keep player on screen
-        self.rect.clamp_ip(pygame.Rect(0, 0, config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
+        self.rect.clamp_ip(pygame.Rect(0, 0, self.screen_width, self.screen_height))

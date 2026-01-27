@@ -8,12 +8,13 @@ from .. import config
 class Paddle(pygame.sprite.Sprite):
     """Horizontal paddle that catches falling objects."""
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, screen_width=None):
         """Initialize the paddle.
 
         Args:
             x: Initial x position (center)
             y: Initial y position (bottom)
+            screen_width: Width of screen for bounds checking (defaults to config)
         """
         super().__init__()
 
@@ -28,6 +29,9 @@ class Paddle(pygame.sprite.Sprite):
 
         # Movement speed
         self.speed = config.PADDLE_SPEED
+
+        # Screen bounds
+        self.screen_width = screen_width if screen_width is not None else config.SCREEN_WIDTH
 
     def move_left(self, dt):
         """Move paddle left.
@@ -48,8 +52,8 @@ class Paddle(pygame.sprite.Sprite):
         """
         self.rect.x += self.speed * dt
         # Clamp to screen bounds
-        if self.rect.right > config.SCREEN_WIDTH:
-            self.rect.right = config.SCREEN_WIDTH
+        if self.rect.right > self.screen_width:
+            self.rect.right = self.screen_width
 
     def update(self, dt):
         """Update paddle state.

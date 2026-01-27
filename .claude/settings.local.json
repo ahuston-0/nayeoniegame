@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(nix develop:*)",
-      "Bash(uv run pytest:*)"
+      "Bash(uv run pytest:*)",
+      "Bash(python -m pytest:*)"
     ]
   }
 }

@@ -7,6 +7,7 @@ import pygame
 
 from . import config
 from .scenes.main_menu import MainMenuScene
+from .settings import SettingsManager
 
 
 class Game:
@@ -20,13 +21,27 @@ class Game:
         """
         pygame.init()
 
+        # Load settings
+        self.settings_manager = SettingsManager()
+
+        # Get display settings from saved preferences
+        width, height = self.settings_manager.get_resolution()
+        window_mode = self.settings_manager.get_window_mode()
+
         # Check if we can create a display
         if headless:
             os.environ["SDL_VIDEODRIVER"] = "dummy"
-            self.screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
+            self.screen = pygame.display.set_mode((width, height))
         else:
             try:
-                self.screen = pygame.display.set_mode((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
+                # Determine pygame display flags based on window mode
+                flags = 0
+                if window_mode == "fullscreen":
+                    flags = pygame.FULLSCREEN
+                elif window_mode == "borderless":
+                    flags = pygame.NOFRAME
+
+                self.screen = pygame.display.set_mode((width, height), flags)
                 pygame.display.set_caption(config.TITLE)
             except pygame.error as e:
                 print(f"Error: Could not create display: {e}")

@@ -14,8 +14,14 @@ class MovementMinigame(Scene):
         super().__init__(game)
         self.font = pygame.font.SysFont(None, 32)
 
-        # Create player
-        self.player = Player(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2)
+        # Get dynamic screen dimensions
+        self.screen_width = game.screen.get_width()
+        self.screen_height = game.screen.get_height()
+
+        # Create player with dynamic screen bounds
+        self.player = Player(
+            self.screen_width // 2, self.screen_height // 2, self.screen_width, self.screen_height
+        )
 
         # Create sprite group
         self.all_sprites = pygame.sprite.Group()
@@ -64,4 +70,4 @@ class MovementMinigame(Scene):
 
         # Draw instructions
         instructions = self.font.render("WASD/Arrows: Move | ESC: Back", True, config.WHITE)
-        screen.blit(instructions, (10, config.SCREEN_HEIGHT - 40))
+        screen.blit(instructions, (10, self.screen_height - 40))
