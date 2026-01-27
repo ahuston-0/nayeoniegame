@@ -51,7 +51,7 @@ jobs:
         env:
           SDL_VIDEODRIVER: dummy
         run: |
-          python -m pytest
+          python -m uv run pytest
 
       - name: Upload coverage HTML
         if: always()
