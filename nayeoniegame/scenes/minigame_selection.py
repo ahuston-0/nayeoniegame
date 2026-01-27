@@ -30,6 +30,10 @@ class MinigameSelectionScene(Scene):
         self.small_font = pygame.font.SysFont(None, 28)
         self.selected_option = 0
 
+        # Get dynamic screen dimensions
+        self.screen_width = game.screen.get_width()
+        self.screen_height = game.screen.get_height()
+
         # Add "Back to Main Menu" option
         self.options = [f"{name} - {desc}" for name, desc, _ in self.MINIGAMES]
         self.options.append("Back to Main Menu")
@@ -88,21 +92,21 @@ class MinigameSelectionScene(Scene):
 
         # Draw title
         title_text = self.font.render("Select a Minigame", True, config.CYAN)
-        title_rect = title_text.get_rect(center=(config.SCREEN_WIDTH // 2, 100))
+        title_rect = title_text.get_rect(center=(self.screen_width // 2, 100))
         screen.blit(title_text, title_rect)
 
         # Draw menu options
         for i, option in enumerate(self.options):
             color = config.YELLOW if i == self.selected_option else config.WHITE
             text = self.small_font.render(option, True, color)
-            text_rect = text.get_rect(center=(config.SCREEN_WIDTH // 2, 220 + i * 50))
+            text_rect = text.get_rect(center=(self.screen_width // 2, 220 + i * 50))
             screen.blit(text, text_rect)
 
         # Draw instructions
         instructions = self.small_font.render(
             "UP/DOWN: Navigate | ENTER: Select | ESC: Back", True, config.WHITE
         )
-        instructions_rect = instructions.get_rect(center=(config.SCREEN_WIDTH // 2, 520))
+        instructions_rect = instructions.get_rect(center=(self.screen_width // 2, 520))
         screen.blit(instructions, instructions_rect)
 
     @property

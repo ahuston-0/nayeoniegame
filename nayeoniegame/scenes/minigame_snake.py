@@ -21,18 +21,22 @@ class SnakeMinigame(Scene):
         self.font = pygame.font.SysFont(None, 28)
         self.large_font = pygame.font.SysFont(None, 64)
 
+        # Get dynamic screen dimensions
+        self.screen_width = game.screen.get_width()
+        self.screen_height = game.screen.get_height()
+
         # Grid settings (visual tweaks)
         # Slightly larger cells improve visibility on typical screens
         self.cell_size = 24
         self.top_offset = 60
 
         # Fit the maximum whole columns for the given cell size and center the field
-        self.cols = config.SCREEN_WIDTH // self.cell_size
+        self.cols = self.screen_width // self.cell_size
         total_field_width = self.cols * self.cell_size
         # Use integer centering so left/right margins are equal
-        self.left_offset = (config.SCREEN_WIDTH - total_field_width) // 2
+        self.left_offset = (self.screen_width - total_field_width) // 2
 
-        self.rows = (config.SCREEN_HEIGHT - self.top_offset) // self.cell_size
+        self.rows = (self.screen_height - self.top_offset) // self.cell_size
 
         # Game state
         # Use a Snake entity to manage logic; scene exposes convenient properties
@@ -157,23 +161,21 @@ class SnakeMinigame(Scene):
         screen.blit(score_text, (10, 10))
 
         instr = self.font.render("Arrows/WASD: Move | ESC: Back", True, config.WHITE)
-        screen.blit(instr, (config.SCREEN_WIDTH - 360, 10))
+        screen.blit(instr, (self.screen_width - 360, 10))
 
         # Game over overlay
         if self.game_over:
-            overlay = pygame.Surface((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
+            overlay = pygame.Surface((self.screen_width, self.screen_height))
             overlay.set_alpha(160)
             overlay.fill((0, 0, 0))
             screen.blit(overlay, (0, 0))
 
             go_text = self.large_font.render("GAME OVER", True, config.RED)
             go_rect = go_text.get_rect(
-                center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 - 20)
+                center=(self.screen_width // 2, self.screen_height // 2 - 20)
             )
             screen.blit(go_text, go_rect)
 
             cont = self.font.render("Press ENTER to restart or ESC to return", True, config.WHITE)
-            cont_rect = cont.get_rect(
-                center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 + 40)
-            )
+            cont_rect = cont.get_rect(center=(self.screen_width // 2, self.screen_height // 2 + 40))
             screen.blit(cont, cont_rect)

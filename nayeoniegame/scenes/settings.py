@@ -16,6 +16,10 @@ class SettingsScene(Scene):
         self.small_font = pygame.font.SysFont(None, 28)
         self.settings_manager = game.settings_manager
 
+        # Get dynamic screen dimensions
+        self.screen_width = game.screen.get_width()
+        self.screen_height = game.screen.get_height()
+
         # Menu structure: (label, setting_section, setting_key, options)
         self.menu_items = [
             (
@@ -127,7 +131,7 @@ class SettingsScene(Scene):
 
         # Draw title
         title_text = self.font.render("Settings", True, config.CYAN)
-        title_rect = title_text.get_rect(center=(config.SCREEN_WIDTH // 2, 60))
+        title_rect = title_text.get_rect(center=(self.screen_width // 2, 60))
         screen.blit(title_text, title_rect)
 
         # Draw menu items
@@ -150,7 +154,7 @@ class SettingsScene(Scene):
             if section is None:
                 # Back button
                 text = self.small_font.render(label, True, color)
-                text_rect = text.get_rect(center=(config.SCREEN_WIDTH // 2, y_pos))
+                text_rect = text.get_rect(center=(self.screen_width // 2, y_pos))
                 screen.blit(text, text_rect)
             else:
                 # Setting with value
@@ -159,12 +163,12 @@ class SettingsScene(Scene):
 
                 # Draw label on left
                 label_text = self.small_font.render(f"{label}:", True, color)
-                label_rect = label_text.get_rect(midright=(config.SCREEN_WIDTH // 2 - 20, y_pos))
+                label_rect = label_text.get_rect(midright=(self.screen_width // 2 - 20, y_pos))
                 screen.blit(label_text, label_rect)
 
                 # Draw value on right
                 value_text = self.small_font.render(display_value, True, color)
-                value_rect = value_text.get_rect(midleft=(config.SCREEN_WIDTH // 2 + 20, y_pos))
+                value_rect = value_text.get_rect(midleft=(self.screen_width // 2 + 20, y_pos))
                 screen.blit(value_text, value_rect)
 
                 # Draw arrows if editing
@@ -188,7 +192,7 @@ class SettingsScene(Scene):
 
         instructions_text = self.small_font.render(instructions, True, config.WHITE)
         instructions_rect = instructions_text.get_rect(
-            center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT - 40)
+            center=(self.screen_width // 2, self.screen_height - 40)
         )
         screen.blit(instructions_text, instructions_rect)
 
@@ -204,6 +208,6 @@ class SettingsScene(Scene):
                 (200, 200, 0),
             )
             notice_rect = notice_text.get_rect(
-                center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT - 80)
+                center=(self.screen_width // 2, self.screen_height - 80)
             )
             screen.blit(notice_text, notice_rect)

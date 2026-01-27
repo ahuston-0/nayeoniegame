@@ -16,6 +16,10 @@ class MainMenuScene(Scene):
         self.selected_option = 0
         self.options = ["Start Game", "Settings", "Quit"]
 
+        # Get dynamic screen dimensions
+        self.screen_width = game.screen.get_width()
+        self.screen_height = game.screen.get_height()
+
     def handle_event(self, event):
         """Handle input events."""
         if event.type == pygame.KEYDOWN:
@@ -49,19 +53,19 @@ class MainMenuScene(Scene):
 
         # Draw title
         title_text = self.font.render(config.TITLE, True, config.CYAN)
-        title_rect = title_text.get_rect(center=(config.SCREEN_WIDTH // 2, 150))
+        title_rect = title_text.get_rect(center=(self.screen_width // 2, 150))
         screen.blit(title_text, title_rect)
 
         # Draw menu options
         for i, option in enumerate(self.options):
             color = config.YELLOW if i == self.selected_option else config.WHITE
             text = self.small_font.render(option, True, color)
-            text_rect = text.get_rect(center=(config.SCREEN_WIDTH // 2, 300 + i * 60))
+            text_rect = text.get_rect(center=(self.screen_width // 2, 300 + i * 60))
             screen.blit(text, text_rect)
 
         # Draw instructions
         instructions = self.small_font.render(
             "Use UP/DOWN arrows and ENTER to select", True, config.WHITE
         )
-        instructions_rect = instructions.get_rect(center=(config.SCREEN_WIDTH // 2, 500))
+        instructions_rect = instructions.get_rect(center=(self.screen_width // 2, 500))
         screen.blit(instructions, instructions_rect)

@@ -17,6 +17,10 @@ class MazeRunnerMinigame(Scene):
         self.font = pygame.font.SysFont(None, 32)
         self.large_font = pygame.font.SysFont(None, 64)
 
+        # Get dynamic screen dimensions
+        self.screen_width = game.screen.get_width()
+        self.screen_height = game.screen.get_height()
+
         # Game state
         self.elapsed_time = 0.0
         self.game_won = False
@@ -107,7 +111,7 @@ class MazeRunnerMinigame(Scene):
 
         # Draw instructions
         instructions = self.font.render("Arrows/WASD: Move | ESC: Back", True, config.WHITE)
-        screen.blit(instructions, (10, config.SCREEN_HEIGHT - 40))
+        screen.blit(instructions, (10, self.screen_height - 40))
 
         # Draw win screen
         if self.game_won:
@@ -152,28 +156,26 @@ class MazeRunnerMinigame(Scene):
     def _draw_win_screen(self, screen):
         """Draw win overlay."""
         # Semi-transparent overlay
-        overlay = pygame.Surface((config.SCREEN_WIDTH, config.SCREEN_HEIGHT))
+        overlay = pygame.Surface((self.screen_width, self.screen_height))
         overlay.set_alpha(128)
         overlay.fill(config.BLACK)
         screen.blit(overlay, (0, 0))
 
         # Win message
         win_text = self.large_font.render("YOU WIN!", True, config.GREEN)
-        win_rect = win_text.get_rect(
-            center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 - 50)
-        )
+        win_rect = win_text.get_rect(center=(self.screen_width // 2, self.screen_height // 2 - 50))
         screen.blit(win_text, win_rect)
 
         # Time display
         time_text = self.font.render(f"Time: {self.elapsed_time:.1f}s", True, config.WHITE)
         time_rect = time_text.get_rect(
-            center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 + 20)
+            center=(self.screen_width // 2, self.screen_height // 2 + 20)
         )
         screen.blit(time_text, time_rect)
 
         # Continue instruction
         continue_text = self.font.render("Press ENTER to continue", True, config.WHITE)
         continue_rect = continue_text.get_rect(
-            center=(config.SCREEN_WIDTH // 2, config.SCREEN_HEIGHT // 2 + 70)
+            center=(self.screen_width // 2, self.screen_height // 2 + 70)
         )
         screen.blit(continue_text, continue_rect)
