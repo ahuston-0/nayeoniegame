@@ -40,12 +40,12 @@ jobs:
 
       - name: Lint with ruff
         run: |
-          python -m ruff check .
-          python -m ruff format --check .
+          python -m uv run ruff check .
+          python -m uv run ruff format --check .
 
       - name: Run type checks
         run: |
-          python -m ty check .
+          python -m uv run ty check .
 
       - name: Run tests
         env:
