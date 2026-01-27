@@ -27,7 +27,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .venv
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/uv.lock') }}
+          key: ${{ runner.os }}-pip-${{ matrix.python }}-${{ hashFiles('**/uv.lock') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
