@@ -25,3 +25,7 @@ dev = [
     "ruff>=0.14.14",
     "ty>=0.0.13",
 ]
+
+#[tool.ty.overrides.rules]
+#possibly-unresolved-reference = "ignore"
+#unresolved-import = "ignore"

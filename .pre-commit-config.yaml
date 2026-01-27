@@ -1,0 +1,33 @@
+repos:
+  # Pre-commit hygiene hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.14.14
+    hooks:
+      # Run the linter.
+      - id: ruff-check
+      # Run the formatter.
+      - id: ruff-format
+  - repo: local
+    hooks:
+    - id: pytest
+      name: pytest
+      entry: ./.venv/bin/pytest tests
+      language: system
+      types: [python]
+      pass_filenames: false
+      always_run: true
+    - id: ty-check
+      name: ty check
+      description: "Automatically run 'ty check'"
+      entry: uv run ty check
+      language: python
+      pass_filenames: false
+      additional_dependencies: []

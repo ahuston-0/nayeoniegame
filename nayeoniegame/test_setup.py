@@ -8,25 +8,32 @@ def test_imports():
     print("Testing imports...")
     try:
         import pygame
+
         print(f"  ✓ pygame {pygame.version.ver}")
 
-        from nayeoniegame import config
-        print(f"  ✓ config module")
+        from nayeoniegame import config  # noqa F401
 
-        from nayeoniegame.scenes.base import Scene
-        print(f"  ✓ base scene")
+        print("  ✓ config module")
 
-        from nayeoniegame.scenes.main_menu import MainMenuScene
-        print(f"  ✓ main menu scene")
+        from nayeoniegame.scenes.base import Scene  # noqa F401
 
-        from nayeoniegame.scenes.gameplay import GameplayScene
-        print(f"  ✓ gameplay scene")
+        print("  ✓ base scene")
 
-        from nayeoniegame.entities.player import Player
-        print(f"  ✓ player entity")
+        from nayeoniegame.scenes.main_menu import MainMenuScene  # noqa F401
 
-        from nayeoniegame.game import Game
-        print(f"  ✓ game class")
+        print("  ✓ main menu scene")
+
+        from nayeoniegame.scenes.minigame_movement import MovementMinigame  # noqa F401
+
+        print("  ✓ movement minigame scene")
+
+        from nayeoniegame.entities.player import Player  # noqa F401
+
+        print("  ✓ player entity")
+
+        from nayeoniegame.game import Game  # noqa F401
+
+        print("  ✓ game class")
 
         return True
     except Exception as e:
@@ -60,6 +67,7 @@ def test_player():
     print("\nTesting player entity...")
     try:
         import pygame
+
         pygame.init()
 
         from nayeoniegame.entities.player import Player
@@ -71,8 +79,8 @@ def test_player():
         player.set_direction(1, 0)
         player.update(0.016)  # Simulate one frame at 60fps
 
-        print(f"  ✓ Player creation")
-        print(f"  ✓ Player movement")
+        print("  ✓ Player creation")
+        print("  ✓ Player movement")
 
         pygame.quit()
         return True
