@@ -21,6 +21,7 @@ packages = ["nayeoniegame"]
 dev = [
     "pip-audit>=2.10.0",
     "prek>=0.3.0",
+    "py2exe>=0.14.0.0 ; sys_platform == 'win_amd64'",
     "pytest-cov>=4.1.0",
     "pytest-mock>=3.15.1",
     "pytest-xdist[psutil]>=3.8.0",
