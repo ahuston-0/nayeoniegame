@@ -1,0 +1,27 @@
+# uv
+uv.lock
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Nix
+result
+result-*
+.direnv/
+
+# Pygame/Python
+*.so
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
