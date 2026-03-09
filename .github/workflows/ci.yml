@@ -30,13 +30,13 @@ jobs:
           path: .venv
           key: ${{ runner.os }}-pip-${{ matrix.python }}-${{ hashFiles('**/uv.lock') }}
           restore-keys: |
-            ${{ runner.os }}-pip-
+            ${{ runner.os }}-pip-${{ matrix.python }}-
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install uv
-          python -m uv venv
+          python -m uv venv --clear
           python -m uv sync --dev
 
       - name: Lint with ruff
