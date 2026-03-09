@@ -243,4 +243,4 @@ uv add --group dev package-name
 
 ## License
 
-(Add your license here)
+This project uses the full Hippocratic License 3.0, with further detail in [here](LICENSE.md).

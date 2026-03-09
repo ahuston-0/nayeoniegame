@@ -31,10 +31,10 @@
               wayland-protocols
               libxkbcommon
               # X11 support (for Xwayland)
-              xorg.libX11
-              xorg.libXcursor
-              xorg.libXi
-              xorg.libXrandr
+              libX11
+              libXcursor
+              libXi
+              libXrandr
               # EGL/OpenGL support for rendering
               libGL
               mesa
@@ -53,10 +53,10 @@
                   pkgs.zlib
                   pkgs.wayland
                   pkgs.libxkbcommon
-                  pkgs.xorg.libX11
-                  pkgs.xorg.libXcursor
-                  pkgs.xorg.libXi
-                  pkgs.xorg.libXrandr
+                  pkgs.libX11
+                  pkgs.libXcursor
+                  pkgs.libXi
+                  pkgs.libXrandr
                   pkgs.libGL
                   pkgs.mesa
                 ]}''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
