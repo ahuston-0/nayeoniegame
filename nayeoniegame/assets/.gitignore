@@ -1,0 +1,9 @@
+#ignore Krita files
+*.kra
+*.kra~
+#ignore Photoshop files
+*.psd
+#ignore GIMP files
+*.xcf
+#ignore Blender files
+*.blend
